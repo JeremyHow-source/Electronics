@@ -1,0 +1,2039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>⚡ Electronics Reading & Interactive Engineering Lab | Power Electronics, PCB Design & IPC Standards</title>
+  <meta name="description" content="Interactive Engineering Atlas & Replica Simulation Labs for 5-Level VIENNA Rectifiers, Synergetic 6-Phase PMSM Drives, Waste PCB Copper Recovery (TOPSIS/ANOVA), Switching Power Supplies A to Z (LLC/DAB/PWM/PID), Complete PCB Design Using OrCAD Capture & Editor, IPC-A-610E, and IPC-A-600J." />
+
+  <!-- Marked.js for Markdown parsing -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <!-- Mermaid.js for Architecture & Flow Diagrams -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <!-- KaTeX for Mathematical Equations -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+  <style>
+    :root, [data-theme="dracula"] {
+      --bg-primary: #0f111a;
+      --bg-secondary: #181b28;
+      --bg-card: #1e2233;
+      --bg-card-hover: #252a40;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --accent: #bd93f9;
+      --accent-secondary: #8be9fd;
+      --accent-green: #50fa7b;
+      --accent-amber: #ffb86c;
+      --accent-red: #ff5555;
+      --border: #2e344e;
+      --code-bg: #131622;
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.65);
+    }
+    [data-theme="blue-steel"] {
+      --bg-primary: #0b1320;
+      --bg-secondary: #111d33;
+      --bg-card: #162541;
+      --bg-card-hover: #1e3256;
+      --text-primary: #e2e8f0;
+      --text-secondary: #94a3b8;
+      --accent: #38bdf8;
+      --accent-secondary: #818cf8;
+      --accent-green: #4ade80;
+      --accent-amber: #fbbf24;
+      --accent-red: #f87171;
+      --border: #263b63;
+      --code-bg: #080f1a;
+    }
+    [data-theme="amethyst"] {
+      --bg-primary: #130d1e;
+      --bg-secondary: #1c142d;
+      --bg-card: #261b3d;
+      --bg-card-hover: #322450;
+      --text-primary: #f3e8ff;
+      --text-secondary: #b9a2d8;
+      --accent: #c084fc;
+      --accent-secondary: #f472b6;
+      --accent-green: #34d399;
+      --accent-amber: #fbbf24;
+      --accent-red: #fb7185;
+      --border: #3d2c60;
+      --code-bg: #0e0917;
+    }
+    [data-theme="forest"] {
+      --bg-primary: #0a1410;
+      --bg-secondary: #10201a;
+      --bg-card: #162c24;
+      --bg-card-hover: #1e3b30;
+      --text-primary: #ecfdf5;
+      --text-secondary: #86efac;
+      --accent: #34d399;
+      --accent-secondary: #38bdf8;
+      --accent-green: #4ade80;
+      --accent-amber: #facc15;
+      --accent-red: #f87171;
+      --border: #234739;
+      --code-bg: #070e0b;
+    }
+    [data-theme="copper"] {
+      --bg-primary: #16110d;
+      --bg-secondary: #221a14;
+      --bg-card: #2d221a;
+      --bg-card-hover: #3b2d22;
+      --text-primary: #fef3c7;
+      --text-secondary: #d6bc98;
+      --accent: #f59e0b;
+      --accent-secondary: #fb923c;
+      --accent-green: #4ade80;
+      --accent-amber: #fbbf24;
+      --accent-red: #f87171;
+      --border: #4a3728;
+      --code-bg: #100c09;
+    }
+    [data-theme="cyan"] {
+      --bg-primary: #071318;
+      --bg-secondary: #0c1f27;
+      --bg-card: #122c37;
+      --bg-card-hover: #183a48;
+      --text-primary: #ecfeff;
+      --text-secondary: #7dd3fc;
+      --accent: #00f5d4;
+      --accent-secondary: #38bdf8;
+      --accent-green: #4ade80;
+      --accent-amber: #facc15;
+      --accent-red: #fb7185;
+      --border: #1e4959;
+      --code-bg: #050d11;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+    a { color: var(--accent-secondary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Top Header Navigation */
+    .top-navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(15, 17, 26, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 1.12rem;
+      color: var(--text-primary);
+      cursor: pointer;
+      user-select: none;
+    }
+    .brand-logo span.badge-pill {
+      background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+      color: #0b0f19;
+      font-size: 0.72rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-weight: 800;
+    }
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .search-box {
+      position: relative;
+      min-width: 250px;
+    }
+    .search-box input {
+      width: 100%;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      padding: 7px 12px 7px 32px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-box input:focus { border-color: var(--accent); }
+    .search-box .search-icon {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+    .btn-nav, select.nav-select {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+      padding: 7px 12px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-nav:hover, select.nav-select:hover {
+      border-color: var(--accent);
+      background: var(--bg-card-hover);
+    }
+    .btn-nav.active {
+      background: var(--accent);
+      color: #0b0f19;
+      border-color: var(--accent);
+    }
+    .btn-kofi-top {
+      background: linear-gradient(135deg, #ff5e5b, #ff8552);
+      color: #fff !important;
+      border: none;
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none !important;
+      box-shadow: 0 4px 12px rgba(255, 94, 91, 0.35);
+    }
+    .btn-kofi-top:hover { opacity: 0.92; transform: translateY(-1px); }
+
+    /* Hero Banner */
+    .hero-section {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 36px 24px 20px;
+    }
+    .hero-card {
+      background: linear-gradient(135deg, rgba(189, 147, 249, 0.12), rgba(56, 189, 248, 0.08));
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 32px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(80, 250, 123, 0.14);
+      color: var(--accent-green);
+      border: 1px solid rgba(80, 250, 123, 0.35);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .hero-card h1 {
+      margin: 0 0 10px;
+      font-size: 2.0rem;
+      line-height: 1.25;
+      background: linear-gradient(90deg, var(--text-primary), var(--accent-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-card p {
+      margin: 0 0 20px;
+      color: var(--text-secondary);
+      max-width: 980px;
+      font-size: 1.0rem;
+    }
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .stat-pill {
+      background: rgba(15, 17, 26, 0.65);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+    }
+    .stat-pill .stat-num {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--accent);
+      display: block;
+    }
+    .stat-pill .stat-lbl {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    /* Category Filter Bar */
+    .filter-bar {
+      max-width: 1440px;
+      margin: 12px auto 0;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .filter-pills {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-btn:hover { color: var(--text-primary); border-color: var(--accent); }
+    .filter-btn.active {
+      background: var(--accent);
+      color: #0b0f19;
+      border-color: var(--accent);
+    }
+
+    /* Publication Grid */
+    .library-container {
+      max-width: 1440px;
+      margin: 20px auto 50px;
+      padding: 0 24px;
+    }
+    .pub-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(390px, 1fr));
+      gap: 20px;
+    }
+    @media (max-width: 500px) {
+      .pub-grid { grid-template-columns: 1fr; }
+    }
+    .pub-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .pub-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+    }
+    .pub-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .pub-cat-tag {
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .pub-pages-tag {
+      font-size: 0.76rem;
+      color: var(--text-secondary);
+      background: var(--bg-secondary);
+      padding: 3px 9px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+    .pub-card h2 {
+      margin: 0 0 8px;
+      font-size: 1.2rem;
+      line-height: 1.35;
+      color: var(--text-primary);
+    }
+    .pub-authors {
+      font-size: 0.83rem;
+      color: var(--accent-secondary);
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+    .pub-desc {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      margin-bottom: 14px;
+    }
+    .pub-Simulation-highlights {
+      background: rgba(15, 17, 26, 0.55);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 16px;
+      font-size: 0.81rem;
+    }
+    .pub-Simulation-highlights strong {
+      color: var(--accent-green);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .pub-Simulation-highlights ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--text-secondary);
+    }
+    .pub-Simulation-highlights li { margin-bottom: 2px; }
+    .pub-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: auto;
+    }
+    .btn-primary-launch {
+      flex: 1;
+      background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+      color: #0b0f19;
+      border: none;
+      padding: 9px 14px;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn-primary-launch:hover { opacity: 0.92; transform: translateY(-1px); }
+    .btn-secondary-launch {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+      padding: 9px 12px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-secondary-launch:hover {
+      border-color: var(--accent);
+      background: var(--bg-card-hover);
+    }
+
+    /* Master Comparison Table on Home Page */
+    .matrix-section {
+      margin-top: 36px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+    .matrix-section h3 {
+      margin: 0 0 14px;
+      font-size: 1.2rem;
+      color: var(--accent);
+    }
+    .table-responsive { overflow-x: auto; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0;
+      font-size: 0.88rem;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 10px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: var(--bg-secondary);
+      color: var(--accent-secondary);
+      font-weight: 700;
+    }
+    tr:nth-child(even) td { background: rgba(255, 255, 255, 0.015); }
+
+    /* ======================================================================
+       READER & INTERACTIVE LAB VIEW
+       ====================================================================== */
+    #reader-view {
+      display: none;
+      max-width: 1520px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+    }
+    .reader-toolbar {
+      position: sticky;
+      top: 53px;
+      z-index: 900;
+      background: rgba(24, 27, 40, 0.95);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 16px;
+      margin: 14px 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      box-shadow: var(--shadow);
+    }
+    .reader-toolbar-left, .reader-toolbar-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .mode-tabs {
+      display: flex;
+      background: var(--bg-primary);
+      padding: 3px;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+    .mode-tab {
+      background: transparent;
+      color: var(--text-secondary);
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+    .mode-tab:hover { color: var(--text-primary); }
+    .mode-tab.active {
+      background: var(--accent);
+      color: #0b0f19;
+    }
+
+    .reader-layout {
+      display: grid;
+      grid-template-columns: 290px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    @media (max-width: 1024px) {
+      .reader-layout { grid-template-columns: 1fr; }
+      .toc-sidebar { position: static !important; max-height: none !important; }
+    }
+    .toc-sidebar {
+      position: sticky;
+      top: 125px;
+      max-height: calc(100vh - 145px);
+      overflow-y: auto;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .toc-sidebar h4 {
+      margin: 0 0 10px;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+    }
+    .toc-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      font-size: 0.83rem;
+    }
+    .toc-list li { margin-bottom: 4px; }
+    .toc-list a {
+      display: block;
+      padding: 5px 8px;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .toc-list a:hover, .toc-list a.active {
+      background: var(--bg-secondary);
+      color: var(--accent-secondary);
+    }
+    .toc-list .toc-h3 { padding-left: 20px; font-size: 0.79rem; }
+
+    .reader-main {
+      min-width: 0;
+    }
+
+    /* ======================================================================
+       INTERACTIVE LABS STYLING (Matches interactive_labs.js classes)
+       ====================================================================== */
+    .lab-panel {
+      background: linear-gradient(180deg, var(--bg-card), var(--bg-secondary));
+      border: 2px solid var(--accent);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 28px;
+      box-shadow: var(--shadow);
+    }
+    .lab-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 18px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 14px;
+    }
+    .lab-badge {
+      display: inline-block;
+      background: rgba(80, 250, 123, 0.16);
+      color: var(--accent-green);
+      border: 1px solid rgba(80, 250, 123, 0.4);
+      font-size: 0.74rem;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 999px;
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+    }
+    .lab-header h3 {
+      margin: 4px 0 6px;
+      font-size: 1.35rem;
+      color: var(--text-primary);
+    }
+    .lab-header p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .lab-controls-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+    .lab-control {
+      background: rgba(15, 17, 26, 0.65);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .lab-control label {
+      font-size: 0.84rem;
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+    .lab-control label strong {
+      color: var(--accent-secondary);
+      font-size: 0.95rem;
+    }
+    .lab-control input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+    .lab-control select {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+      padding: 7px 10px;
+      border-radius: 6px;
+      font-size: 0.84rem;
+      outline: none;
+    }
+    .ctrl-hint {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+    .lab-kpi-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .kpi-box {
+      background: rgba(15, 17, 26, 0.8);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent-secondary);
+      border-radius: 10px;
+      padding: 10px 14px;
+    }
+    .kpi-lbl {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-bottom: 4px;
+    }
+    .kpi-val {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--accent-green);
+    }
+    .lab-charts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 16px;
+    }
+    @media (max-width: 600px) {
+      .lab-charts-grid { grid-template-columns: 1fr; }
+    }
+    .lab-chart-card {
+      background: #0d1322;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: hidden;
+    }
+    .chart-title {
+      width: 100%;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--accent-secondary);
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .lab-chart-card canvas {
+      max-width: 100%;
+      border-radius: 6px;
+    }
+
+    /* ======================================================================
+       MARKDOWN CONTENT & HIGH-DEF FIGURE LIGHTBOX CARDS
+       ====================================================================== */
+    .markdown-body {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: var(--shadow);
+    }
+    @media (max-width: 640px) {
+      .markdown-body { padding: 18px; }
+    }
+    .markdown-body h1 {
+      font-size: 1.8rem;
+      margin-top: 0;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--border);
+      color: var(--text-primary);
+    }
+    .markdown-body h2 {
+      font-size: 1.4rem;
+      margin-top: 32px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+      color: var(--accent);
+    }
+    .markdown-body h3 {
+      font-size: 1.15rem;
+      margin-top: 24px;
+      color: var(--accent-secondary);
+    }
+    .markdown-body blockquote {
+      margin: 16px 0;
+      padding: 12px 18px;
+      background: rgba(189, 147, 249, 0.08);
+      border-left: 4px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      color: var(--text-secondary);
+    }
+    .markdown-body pre {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      padding: 14px;
+      border-radius: 10px;
+      overflow-x: auto;
+    }
+    .markdown-body code {
+      background: rgba(255,255,255,0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Cascadia Code', Consolas, monospace;
+      font-size: 0.88em;
+    }
+    .markdown-body pre code {
+      background: transparent;
+      padding: 0;
+    }
+
+    /* Extracted Publication Figures */
+    .pub-figure-box {
+      background: #ffffff;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      margin: 22px 0;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+    }
+    .pub-figure-toolbar {
+      background: var(--bg-secondary);
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .pub-figure-caption {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .pub-figure-actions {
+      display: flex;
+      gap: 6px;
+    }
+    .btn-fig-zoom {
+      background: var(--bg-card);
+      color: var(--accent-secondary);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn-fig-zoom:hover {
+      background: var(--accent);
+      color: #0b0f19;
+    }
+    .pub-figure-img-wrap {
+      padding: 16px;
+      text-align: center;
+      background: #ffffff;
+      cursor: zoom-in;
+    }
+    .pub-figure-img-wrap img {
+      max-width: 100%;
+      max-height: 620px;
+      height: auto;
+      display: inline-block;
+      border-radius: 4px;
+    }
+
+    /* Quick Reference Snippet Cards View */
+    .snippets-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+      gap: 18px;
+    }
+    @media (max-width: 600px) {
+      .snippets-grid { grid-template-columns: 1fr; }
+    }
+    .snippet-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+    .snippet-card h3 {
+      margin-top: 0;
+      color: var(--accent);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+
+    /* PDF Library View */
+    .pdf-library-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+    }
+    .pdf-chapters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .pdf-item-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .pdf-item-card:hover { border-color: var(--accent); }
+
+    /* Lightbox Modal */
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 7, 12, 0.92);
+      z-index: 3000;
+      display: none;
+      flex-direction: column;
+    }
+    .lightbox-overlay.open { display: flex; }
+    .lightbox-header {
+      padding: 12px 20px;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .lightbox-body {
+      flex: 1;
+      overflow: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .lightbox-body img {
+      background: #fff;
+      padding: 12px;
+      border-radius: 8px;
+      transition: transform 0.15s ease;
+      max-width: 95%;
+      max-height: 90vh;
+    }
+
+    /* Search Modal / Results Banner */
+    #search-results-panel {
+      display: none;
+      max-width: 1440px;
+      margin: 16px auto;
+      padding: 0 24px;
+    }
+    .search-results-card {
+      background: var(--bg-card);
+      border: 2px solid var(--accent-secondary);
+      border-radius: 12px;
+      padding: 18px 22px;
+    }
+    .search-hit {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+    }
+    .search-hit:hover { background: var(--bg-card-hover); }
+
+    /* Feedback Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      z-index: 2500;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      max-width: 580px;
+      width: 100%;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+    .modal-card textarea, .modal-card input {
+      width: 100%;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      font-family: inherit;
+    }
+
+    /* Ruby Pinyin Annotation when ZH mode is active */
+    ruby { ruby-align: center; }
+    rt { font-size: 0.68em; color: var(--accent-amber); font-weight: 600; }
+
+    /* Floating Ko-fi Widget */
+    .floating-kofi {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1200;
+      background: linear-gradient(135deg, #ff5e5b, #ff8552);
+      color: #fff !important;
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.86rem;
+      box-shadow: 0 8px 20px rgba(255, 94, 91, 0.45);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none !important;
+    }
+    .floating-kofi:hover { transform: translateY(-2px); }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 24px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body data-theme="dracula">
+
+  <!-- TOP NAVIGATION BAR -->
+  <header class="top-navbar">
+    <div class="brand-logo" onclick="showHome()">
+      <span>⚡ Electronics Reading & Interactive Lab</span>
+      <span class="badge-pill">LIVE ATLAS</span>
+    </div>
+
+    <div class="nav-controls">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="global-search" placeholder="Search 7 publications, equations, IPC criteria..." oninput="handleGlobalSearch(this.value)" />
+      </div>
+
+      <select class="nav-select" id="theme-select" onchange="setTheme(this.value)" title="Select Visual Theme">
+        <option value="dracula">🧛 Dracula</option>
+        <option value="blue-steel">🌌 Deep Blue Steel</option>
+        <option value="amethyst">🔮 Dark Amethyst</option>
+        <option value="forest">🌲 Forest Dark</option>
+        <option value="copper">🔥 Amber / Copper</option>
+        <option value="cyan">⚡ Electric Cyan</option>
+      </select>
+
+      <button class="btn-nav" id="btn-lang-toggle" onclick="toggleLanguage()" title="Toggle Bilingual English / Chinese + Pinyin">
+        🌐 EN / 中文
+      </button>
+
+      <button class="btn-nav" onclick="openFeedbackModal()" title="Reader Notes & Feedback">
+        💬 Notes & Feedback
+      </button>
+
+      <a href="https://github.com/JeremyHow-source/Electronics" target="_blank" class="btn-nav" title="View GitHub Repository">
+        🐙 GitHub Repo
+      </a>
+
+      <a href="https://ko-fi.com/jeremyhow" target="_blank" class="btn-kofi-top">
+        ☕ Support on Ko-fi
+      </a>
+    </div>
+  </header>
+
+  <!-- GLOBAL SEARCH RESULTS PANEL -->
+  <div id="search-results-panel">
+    <div class="search-results-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <strong id="search-results-title" style="color:var(--accent-secondary);">Search Results</strong>
+        <button class="btn-nav" onclick="clearGlobalSearch()">✖ Close</button>
+      </div>
+      <div id="search-results-list"></div>
+    </div>
+  </div>
+
+  <!-- HOME LIBRARY VIEW -->
+  <main id="home-view">
+    <section class="hero-section">
+      <div class="hero-card">
+        <div class="hero-eyebrow">⚡ Interactive Engineering Knowledge Base & Publication Replica Suite</div>
+        <h1 id="hero-title">Electronics Reading Folder — Live Interactive Engineering Atlas</h1>
+        <p id="hero-subtitle">
+          Explore all 7 core engineering publications in the <code>Reading/</code> repository with real-time HTML5 Canvas circuit/control simulators, faithful publication-likeness replica charts, 68 high-resolution extracted schematics &amp; IPC microsection figures, complete mathematical derivations, and interactive IPC Class 1/2/3 acceptability inspectors.
+        </p>
+        <div class="hero-stats">
+          <div class="stat-pill">
+            <span class="stat-num">7 Publications</span>
+            <span class="stat-lbl">IEEE Papers, Textbooks &amp; IPC Standards</span>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-num">21 Live Canvases</span>
+            <span class="stat-lbl">Interactive Replica Charts &amp; Calculators</span>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-num">72 HD Figures</span>
+            <span class="stat-lbl">Extracted Original Schematics &amp; Tables</span>
+          </div>
+          <div class="stat-pill">
+            <span class="stat-num">Class 1 / 2 / 3</span>
+            <span class="stat-lbl">IPC-A-610E &amp; IPC-A-600J Live Rule Engines</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Category Filters -->
+    <div class="filter-bar">
+      <div class="filter-pills">
+        <button class="filter-btn active" onclick="filterCategory('all', this)">All Publications (7)</button>
+        <button class="filter-btn" onclick="filterCategory('power', this)">⚡ Power Electronics &amp; Motor Drives (3)</button>
+        <button class="filter-btn" onclick="filterCategory('pcb', this)">📐 PCB Design &amp; IPC Standards (3)</button>
+        <button class="filter-btn" onclick="filterCategory('sustainability', this)">♻️ E-Waste &amp; Hydrometallurgy (1)</button>
+      </div>
+    </div>
+
+    <!-- Publication Cards Grid -->
+    <section class="library-container">
+      <div class="pub-grid" id="pub-cards-grid"></div>
+
+      <!-- Master Comparison Matrix -->
+      <div class="matrix-section">
+        <h3>📊 Reading Folder Master Engineering Matrix &amp; Interactive Module Guide</h3>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Publication</th>
+                <th>Domain &amp; Authors</th>
+                <th>Key Equations &amp; Models</th>
+                <th>Extracted Figures</th>
+                <th>Interactive Simulation &amp; Replica Charts Included</th>
+                <th>Quick Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1. 5-Level Multiple-Pole VIENNA Rectifier (5L-MVR)</strong></td>
+                <td>IEEE Power Electronics (Ooi, Maswood et al., NTU Singapore, 2013)</td>
+                <td>Eq. 1–11: 5-Level Pole Voltage, Modulation Index $M$, Angle Firing $\alpha=30^\circ$, Power Factor &amp; $\text{THD}_i$</td>
+                <td>Figs. 1–10 (10 HD Figs)</td>
+                <td>Live $\alpha$ ($0^\circ\text{--}50^\circ$) &amp; $M$ Simulator; Exact Replica of Fig. 6 ($\text{PF}$ vs $\alpha$), Fig. 7 ($\text{THD}_i$ vs $\alpha$), Fig. 8/9 Waveforms &amp; Fig. 10 FFT Spectrum</td>
+                <td><button class="btn-nav" onclick="openBook('5l-mvr', 'combined')">⚡ Open Lab</button></td>
+              </tr>
+              <tr>
+                <td><strong>2. Vienna Rectifier Front-End Dual 3-Phase PMSM Drive</strong></td>
+                <td>IEEE ICRERA 2025 (Ohno, Haider, Mirić, Univ. of Innsbruck)</td>
+                <td>Eq. 1–12: 3/3 &amp; 1/3 PWM Clamping, Vector Space Decomposition (VSD), Synergetic Control Macro-Variable $\Psi_T$</td>
+                <td>Figs. 1–4 + Table I (5 HD Figs)</td>
+                <td>Live 3/3 vs 1/3 PWM Switching-Loss Comparator + Synergetic vs PI Dynamic Step/Sinusoidal Trajectory Replica of Fig. 2 &amp; Fig. 4</td>
+                <td><button class="btn-nav" onclick="openBook('vr-dpmsm', 'combined')">⚡ Open Lab</button></td>
+              </tr>
+              <tr>
+                <td><strong>3. Optimal Pre-Treatment for Copper Recovery from Waste PCBs</strong></td>
+                <td><em>Resources, Conservation &amp; Recycling</em> 228 (Gómez et al., 2026)</td>
+                <td>Eq. 1–7: Mass Loss %, Acid Leaching Kinetics ($\text{HCl}$ vs $\text{H}_2\text{SO}_4\text{-H}_2\text{O}_2$), ANOVA &amp; TOPSIS MCDM ($C_i^*$)</td>
+                <td>Figs. 1–4 + Tables 1–2 (4 Native 2100px Figs)</td>
+                <td>Live TOPSIS Weight Sliders ($w_{\text{purity}}, w_{\text{yield}}, w_{\text{time}}, w_{\text{cost}}, w_{\text{env}}$) + Exact Replica of Fig. 1, Fig. 2, Fig. 3 &amp; Fig. 4</td>
+                <td><button class="btn-nav" onclick="openBook('wpcb-copper', 'combined')">⚡ Open Lab</button></td>
+              </tr>
+              <tr>
+                <td><strong>4. Switching Power Supplies A to Z (3rd Ed. Add-On)</strong></td>
+                <td>Sanjaya Maniktala &amp; Nicola Rosano (305 Pages, Ch. 1–5)</td>
+                <td>LLC FHA Gain $M(f_n, \kappa, Q)$, DAB Power Flow $P_{\text{DAB}}(\phi)$, Vorpérian PWM Switch, Type-III K-Factor &amp; PID Q-Matching</td>
+                <td>16 Representative HD Schematics &amp; Plots</td>
+                <td>3-Tab Interactive Lab: (1) LLC Gain Curve &amp; Operating Point Plotter, (2) 200 kW DAB Phase-Shift $\phi$ Waveform Engine, (3) Buck Type-III Bode Plotter</td>
+                <td><button class="btn-nav" onclick="openBook('power-supplies', 'combined')">⚡ Open Lab</button></td>
+              </tr>
+              <tr>
+                <td><strong>5. Complete PCB Design Using OrCAD Capture &amp; PCB Editor</strong></td>
+                <td>Kraig Mitzner et al. (2nd Ed., 2019, Ch. 1–12 &amp; App. A–E)</td>
+                <td>Microstrip &amp; Stripline $Z_0$, Critical Length $l_{\text{crit}} = t_r/(2 t_{pd})$, IPC-2152 Trace Current &amp; Padstack Drill/Land Calculator</td>
+                <td>13 HD Stackup, Padstack &amp; SI Figures + 22 PDFs</td>
+                <td>Live Transmission-Line Impedance ($Z_0$), Crosstalk ($K_b$), Critical Length &amp; IPC-2152 Trace Width/Temp-Rise Visual Simulator</td>
+                <td><button class="btn-nav" onclick="openBook('orcad-pcb', 'combined')">⚡ Open Lab</button></td>
+              </tr>
+              <tr>
+                <td><strong>6. IPC-A-610E: Acceptability of Electronic Assemblies</strong></td>
+                <td>IPC Standard (417 Pages, Sections 1–12, Class 1 / 2 / 3)</td>
+                <td>SMT Chip Side/End Overhang, Fillet Height, Gull-Wing Heel/Side Wetting, J-Lead, BGA Voiding &amp; THT Barrel Fill Criteria</td>
+                <td>14 HD Inspection Criteria Pages</td>
+                <td>Interactive Class 1 / 2 / 3 SMT &amp; THT Joint Inspector with Live Cross-Sectional Solder Fillet &amp; Pad Offset Canvas Renderer</td>
+                <td><button class="btn-nav" onclick="openBook('ipc-610e', 'combined')">⚡ Open Lab</button></td>
+              </tr>
+              <tr>
+                <td><strong>7. IPC-A-600J: Acceptability of Printed Boards</strong></td>
+                <td>IPC Standard (200 Pages, Sections 1–5, Class 1 / 2 / 3)</td>
+                <td>External/Internal Annular Ring Breakout, PTH Copper Plating Thickness &amp; Voids, Copper Wicking, Etchback &amp; A/B/C/E/F Cracks</td>
+                <td>10 HD Microsection &amp; Annular Ring Pages</td>
+                <td>Interactive Bare-Board Microsection &amp; Annular Ring Inspector with Live Drill Offset Breakout &amp; PTH Barrel Cross-Section Renderer</td>
+                <td><button class="btn-nav" onclick="openBook('ipc-600j', 'combined')">⚡ Open Lab</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- READER & INTERACTIVE LAB VIEW -->
+  <section id="reader-view">
+    <div class="reader-toolbar">
+      <div class="reader-toolbar-left">
+        <button class="btn-nav" onclick="showHome()">⬅ Back to Library</button>
+        <select class="nav-select" id="reader-book-switcher" onchange="openBook(this.value, currentViewMode)"></select>
+      </div>
+
+      <div class="mode-tabs">
+        <button class="mode-tab active" id="tab-combined" onclick="setViewMode('combined')">⚡ Interactive Lab + Full Atlas</button>
+        <button class="mode-tab" id="tab-lab" onclick="setViewMode('lab')">📊 Interactive Lab Only</button>
+        <button class="mode-tab" id="tab-snippets" onclick="setViewMode('snippets')">📱 Quick Reference Cards</button>
+        <button class="mode-tab" id="tab-pdf" onclick="setViewMode('pdf')">📑 Original PDF Library</button>
+      </div>
+
+      <div class="reader-toolbar-right">
+        <button class="btn-nav" id="btn-tts" onclick="toggleSpeech()" title="Read Technical Summary Aloud">🔊 Listen</button>
+      </div>
+    </div>
+
+    <div class="reader-layout" id="reader-layout-box">
+      <aside class="toc-sidebar" id="toc-sidebar">
+        <h4>📑 Contents &amp; Figures</h4>
+        <ul class="toc-list" id="toc-list"></ul>
+      </aside>
+
+      <div class="reader-main">
+        <!-- Interactive Lab Container -->
+        <div id="interactive-lab-container"></div>
+
+        <!-- Full Markdown Atlas Container -->
+        <div id="markdown-atlas-container" class="markdown-body"></div>
+
+        <!-- Quick Reference Cards Container -->
+        <div id="snippets-container" style="display:none;"></div>
+
+        <!-- PDF Library Container -->
+        <div id="pdf-library-container" style="display:none;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HIGH-DEFINITION FIGURE LIGHTBOX MODAL -->
+  <div class="lightbox-overlay" id="lightbox-modal" onclick="if(event.target===this) closeLightbox()">
+    <div class="lightbox-header">
+      <strong id="lightbox-caption" style="color:var(--text-primary);font-size:0.95rem;">Figure Preview</strong>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <button class="btn-nav" onclick="zoomLightbox(-0.25)">➖ Zoom Out</button>
+        <button class="btn-nav" onclick="zoomLightbox(0)">100%</button>
+        <button class="btn-nav" onclick="zoomLightbox(0.25)">➕ Zoom In</button>
+        <a id="lightbox-raw-link" href="#" target="_blank" class="btn-nav">↗ Open Raw PNG</a>
+        <button class="btn-nav" onclick="closeLightbox()" style="background:var(--accent-red);color:#fff;border:none;">✖ Close (Esc)</button>
+      </div>
+    </div>
+    <div class="lightbox-body">
+      <img id="lightbox-img" src="" alt="High-Definition Publication Figure" />
+    </div>
+  </div>
+
+  <!-- NOTES & FEEDBACK MODAL -->
+  <div class="modal-backdrop" id="feedback-modal" onclick="if(event.target===this) closeFeedbackModal()">
+    <div class="modal-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <h3 style="margin:0;color:var(--accent);">💬 Engineering Notes &amp; Repository Feedback</h3>
+        <button class="btn-nav" onclick="closeFeedbackModal()">✖</button>
+      </div>
+      <p style="font-size:0.86rem;color:var(--text-secondary);margin-top:0;">
+        Save personal engineering notes locally in your browser or open a GitHub Issue on <code>JeremyHow-source/Electronics</code>.
+      </p>
+      <input type="text" id="note-title" placeholder="Topic / Publication Section (e.g., 5L-MVR Switching Angle α=30°)" />
+      <textarea id="note-body" rows="5" placeholder="Write your engineering calculation notes, observations, or feedback here..."></textarea>
+      <div style="display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;">
+        <button class="btn-nav" onclick="saveLocalNote()">💾 Save to Browser Notes</button>
+        <button class="btn-primary-launch" style="flex:0 0 auto;" onclick="submitGitHubIssue()">🐙 Submit via GitHub Issue</button>
+      </div>
+      <div id="saved-notes-list" style="margin-top:14px;max-height:180px;overflow-y:auto;font-size:0.82rem;"></div>
+    </div>
+  </div>
+
+  <!-- FLOATING KO-FI BUTTON -->
+  <a href="https://ko-fi.com/jeremyhow" target="_blank" class="floating-kofi">
+    ☕ Buy Jeremy a Coffee
+  </a>
+
+  <footer>
+    <p>
+      <strong>⚡ Electronics Engineering &amp; Reliability Knowledge Base — Interactive Reading Atlas</strong><br />
+      Built with high-definition publication figures, analytical mathematical models, and real-time HTML5 Canvas simulations.<br />
+      <a href="https://github.com/JeremyHow-source/Electronics" target="_blank">GitHub Repository</a> ·
+      <a href="https://ko-fi.com/jeremyhow" target="_blank">Support on Ko-fi ☕</a>
+    </p>
+  </footer>
+
+  <!-- DATA BUNDLE & INTERACTIVE LABS -->
+  <base href="../" />
+  <script src="Reading/reading_data_bundle.js"></script>
+  <script src="Reading/interactive_labs.js"></script>
+
+  <script>
+    // ========================================================================
+    // PUBLICATION CATALOG METADATA (All 7 Publications in Reading/)
+    // ========================================================================
+    const PUBLICATIONS = [
+      {
+        id: '5l-mvr',
+        category: 'power',
+        catLabel: '⚡ Power Electronics (IEEE 2013)',
+        catColor: 'rgba(189, 147, 249, 0.2)',
+        catBorder: '#bd93f9',
+        title: 'Input Current Shaping of Five-Level Multiple-Pole VIENNA Rectifier Topologies',
+        zhTitle: '五电平多极维也纳整流器拓扑的输入电流整形与降器件高性能控制',
+        authors: 'Ooi H. P. Gabriel, Ali I. Maswood, Lim Ziyou, M. A. Chaitanya (NTU Singapore, IEEE 2013)',
+        pages: '6 Pages · Figs. 1–10 · Eqs. 1–11',
+        pdfPath: 'Reading/Input_current_shaping_of_five_level_Multiple_pole_VIENNA_rectifier.pdf',
+        isLfs: false,
+        desc: 'Introduces a unidirectional 3-phase 5-level multiple-pole VIENNA rectifier (5L-MVR) using only 6 IGBTs total. Combines inner-cell fixed angle firing (α = 30°) at fundamental frequency with outer-cell 1 kHz LS-PWM/PS-PWM to achieve 0.99 PF and 3.43% THD_i.',
+        highlights: [
+          'Live 5-Level Pole Voltage V_aN & Line Voltage V_ab Waveform Synthesizer',
+          'Exact Replica of Fig. 6 (PF vs α) & Fig. 7 (THD_i vs α) from α = 0° to 50°',
+          'Exact Replica of Fig. 10 Harmonic FFT Spectrum (3.43% THD at 1 kHz LS-PWM)'
+        ]
+      },
+      {
+        id: 'vr-dpmsm',
+        category: 'power',
+        catLabel: '⚡ Motor Drives & Control (IEEE 2025)',
+        catColor: 'rgba(56, 189, 248, 0.2)',
+        catBorder: '#38bdf8',
+        title: 'Vienna Rectifier Front-End Dual Three-Phase PMSM Drive with Synergetic Control',
+        zhTitle: '具有协同控制的维也纳整流器前端双三相永磁同步电机驱动系统',
+        authors: 'Shunsuke Ohno, M. Haider, Spasoje Mirić (University of Innsbruck, IEEE ICRERA 2025)',
+        pages: '9 Pages · Figs. 1–4 · Table I · Eqs. 1–12',
+        pdfPath: 'Reading/Vienna_Rectifier_Front_End_Dual_Three_Phase_PMSM_Drive_with_Synergetic.pdf',
+        isLfs: false,
+        desc: 'Co-designs a hybrid SiC/GaN Vienna rectifier front-end (comparing 3/3 PWM vs 1/3 six-step clamping PWM) with a 6-phase asymmetrical dual three-phase PMSM drive regulated by nonlinear Synergetic Control across three operating modes.',
+        highlights: [
+          'Live Mode 1 / Mode 2 / Mode 3 (3/3 vs 1/3 Clamping PWM) Switching Loss Simulator',
+          'Exact Replica of Fig. 2 Grid Current, Clamping Intervals & Capacitor Balance',
+          'Exact Replica of Fig. 4 Synergetic Control vs PI Controller Step & Sinusoidal Tracking'
+        ]
+      },
+      {
+        id: 'wpcb-copper',
+        category: 'sustainability',
+        catLabel: '♻️ E-Waste Hydrometallurgy (RCR 2026)',
+        catColor: 'rgba(80, 250, 123, 0.18)',
+        catBorder: '#50fa7b',
+        title: 'From E-Waste to Resource: Optimal Pre-Treatment for Copper Recovery from Waste PCBs',
+        zhTitle: '从电子废弃物到资源：废旧印制电路板铜回收的最佳预处理工艺识别',
+        authors: 'M. Gómez, A. Barnadas-Rodríguez, C. Domínguez, L. Asensio, J. L. Valiente (RCR 228, 2026)',
+        pages: '12 Pages · Figs. 1–4 · Tables 1–2 · Eqs. 1–7',
+        pdfPath: 'Reading/optimal pre-treatment for copper recovery from waste PCBs.pdf',
+        isLfs: false,
+        desc: 'Evaluates 4 physical-chemical pre-treatment routes (Direct Milling, NaOH Solder Mask Stripping, Thermal Shock, Supercritical CO₂) and HCl vs H₂SO₄-H₂O₂ leaching using ANOVA and TOPSIS multi-criteria decision analysis.',
+        highlights: [
+          'Interactive 5-Criterion TOPSIS Weight Sliders & Scenario Simulator (S0–S4)',
+          'Exact Replica of Fig. 1 & Fig. 2 Leaching Kinetics (Cu, Fe, Al, Zn, Sn, Pb, Ni)',
+          'Exact Replica of Fig. 3 Impurity Distribution & Fig. 4 TOPSIS Closeness C_i*'
+        ]
+      },
+      {
+        id: 'power-supplies',
+        category: 'power',
+        catLabel: '⚡ Power Conversion Textbook (3rd Ed.)',
+        catColor: 'rgba(255, 184, 108, 0.2)',
+        catBorder: '#ffb86c',
+        title: 'Switching Power Supplies A to Z — 3rd Edition Add-On (Resonant, DAB, PWM & PID)',
+        zhTitle: '开关电源从A到Z（第三版增补卷：谐振变换器、双有源桥、PWM小信号建模与环路补偿）',
+        authors: 'Sanjaya Maniktala & Nicola Rosano (305 Pages · Chapters 1–5)',
+        pages: '305 Pages · 5 Chapters · 16 HD Figures',
+        pdfPath: 'Reading/Power Supplies A to Z 3rd Edition Maniktala Rosano.pdf',
+        isLfs: false,
+        desc: 'Master reference covering LC/WPT/LLC resonant converters (FHA & exact time-domain peaks), Dual Active Bridge (DAB) 8-segment state-plane analysis, Vorpérian PWM switch small-signal modeling, Type 1/2/3 compensators, and PID Q-matching.',
+        highlights: [
+          'Interactive Ch. 1 LLC Resonant Gain M(f_n, κ, Q) & ZVS/ZCS Boundary Plotter',
+          'Interactive Ch. 2 200 kW Dual Active Bridge (DAB) Phase-Shift φ Waveform Simulator',
+          'Interactive Ch. 3–5 VMC Buck Plant + Type-III K-Factor Loop Bode Plotter'
+        ]
+      },
+      {
+        id: 'orcad-pcb',
+        category: 'pcb',
+        catLabel: '📐 PCB Engineering & SI (2nd Ed.)',
+        catColor: 'rgba(56, 189, 248, 0.2)',
+        catBorder: '#38bdf8',
+        title: 'Complete PCB Design Using OrCAD Capture and PCB Editor (2nd Edition)',
+        zhTitle: '使用 OrCAD Capture 与 PCB Editor 进行完整印制电路板设计（第二版）',
+        authors: 'Kraig Mitzner, Bob Doe, Alexander Akulin, Anton Suponin, Dirk Müller (Newnes / Elsevier, 2019)',
+        pages: '540+ Pages · Ch. 1–12 & App. A–E (22 PDFs)',
+        pdfPath: 'Reading/Complete PCB Design Using OrCAD Capture and PCB Editor/Front_matter_2019_Complete_PCB_Design_Using_OrCAD_Capture_and_PCB.pdf',
+        isLfs: false,
+        orcadChapters: [
+          { name: 'Front Matter & TOC', file: 'Front_matter_2019_Complete_PCB_Design_Using_OrCAD_Capture_and_PCB.pdf' },
+          { name: 'Introduction', file: 'Introduction_2019_Complete_PCB_Design_Using_OrCAD_Capture_and_PCB.pdf' },
+          { name: 'Ch 1: Introduction to Printed Circuit Boards', file: 'Chapter_1_Introduction_to_printed_circui_2019_Complete_PCB_Design.pdf' },
+          { name: 'Ch 2: Introduction to the PCB Design Flow by Example', file: 'Chapter_2_Introduction_to_the_printed_c_2019_Complete_PCB_Design.pdf' },
+          { name: 'Ch 3: Project Structures and the PCB Editor Tool Set', file: 'Chapter_3_Project_structures_and_t_2019_Complete_PCB_Design_Using.pdf' },
+          { name: 'Ch 4: Introduction to Industry Standards (IPC/MIL)', file: 'Chapter_4_Introduction_to_indu_2019_Complete_PCB_Design_Using_OrCAD.pdf' },
+          { name: 'Ch 5: Introduction to Design for Manufacturing (DFM)', file: 'Chapter_5_Introduction_to_design_2019_Complete_PCB_Design_Using.pdf' },
+          { name: 'Ch 6: PCB Design for Signal Integrity (SI & EMI)', file: 'Chapter_6_PCB_design_for_sign_2019_Complete_PCB_Design_Using_OrCAD.pdf' },
+          { name: 'Ch 7: Making and Editing Capture Schematic Parts', file: 'Chapter_7_Making_and_editing_C_2019_Complete_PCB_Design_Using_OrCAD.pdf' },
+          { name: 'Ch 8: Making and Editing PCB Footprints & Padstacks', file: 'Chapter_8_Making_and_editing_2019_Complete_PCB_Design_Using_OrCAD.pdf' },
+          { name: 'Ch 9: PCB Design Examples (Analog, Digital, Mixed, Multi-Page)', file: 'Chapter_9_Printed_circuit_board_2019_Complete_PCB_Design_Using_OrCAD.pdf' },
+          { name: 'Ch 10: Artwork Development and Gerber Processing', file: 'Chapter_10_Artwork_development_an_2019_Complete_PCB_Design_Using.pdf' },
+          { name: 'Ch 11: Component Information System (CIS & ODBC)', file: 'Chapter_11_Component_informa_2019_Complete_PCB_Design_Using_OrCAD.pdf' },
+          { name: 'Ch 12: Signal Integrity Simulation with OrCAD PSpice', file: 'Chapter_12_Signal_integrity_simu_2019_Complete_PCB_Design_Using.pdf' },
+          { name: 'Appendix A: List of Design Standards', file: 'Appendix_A_List_of_design_s_2019_Complete_PCB_Design_Using_OrCAD.pdf' },
+          { name: 'Appendix B: Partial List of Packages and Footprints', file: 'Appendix_B_Partial_list_of_packages_and_footp_2019_Complete_PCB.pdf' },
+          { name: 'Appendix C: Logic Family Rise and Fall Times', file: 'Appendix_C_Rise_and_fall_times_for_2019_Complete_PCB_Design_Using.pdf' },
+          { name: 'Appendix D: Drill and Screw Dimensions', file: 'Appendix_D_Drill_and_screw_d_2019_Complete_PCB_Design_Using_OrCAD.pdf' },
+          { name: 'Appendix E: References by Subject', file: 'Appendix_E_References_by_2019_Complete_PCB_Design_Using_OrCAD_Capture.pdf' },
+          { name: 'Acknowledgments', file: 'Acknowledgments_2019_Complete_PCB_Design_Using_OrCAD_Capture_and.pdf' },
+          { name: 'Copyright', file: 'Copyright_2019_Complete_PCB_Design_Using_OrCAD_Capture_and_PCB_Editor.pdf' },
+          { name: 'Subject Index', file: 'Index_2019_Complete_PCB_Design_Using_OrCAD_Capture_and_PCB_Editor.pdf' }
+        ],
+        desc: 'End-to-end engineering guide covering 4/6/8-layer PCB stackups, IPC-A-600/J-STD-001/IPC-2221 standards, wave/reflow DFM, loop inductance, microstrip/stripline impedance Z₀, padstack design, Gerber CAM, CIS, and PSpice SI reflections.',
+        highlights: [
+          'Live Surface Microstrip & Symmetric Stripline Characteristic Impedance Z₀ Calculator',
+          'Live Signal-Integrity Critical Length l_crit & Backward Crosstalk Coefficient K_b',
+          'Live IPC-2152 Trace Current Capacity & Cross-Sectional Field Visualizer'
+        ]
+      },
+      {
+        id: 'ipc-610e',
+        category: 'pcb',
+        catLabel: '📐 IPC Assembly Standard (IPC-A-610E)',
+        catColor: 'rgba(244, 114, 182, 0.2)',
+        catBorder: '#f472b6',
+        title: 'IPC-A-610E: Acceptability of Electronic Assemblies (Class 1, 2 & 3)',
+        zhTitle: 'IPC-A-610E：电子组件的可接受性标准（1级、2级与3级高可靠性规范）',
+        authors: 'IPC — Association Connecting Electronics Industries (Revision E, 417 Pages)',
+        pages: '417 Pages · Sections 1–12 · 14 HD Figures',
+        pdfPath: 'Reading/561401556-IPC-A-610E.pdf',
+        isLfs: true,
+        desc: 'Industry-standard visual and dimensional acceptability criteria for electronic assemblies across Class 1 (General), Class 2 (Dedicated Service), and Class 3 (High-Reliability Aerospace/Medical): EOS/ESD, Hardware, Soldering, Terminals, THT, and SMT (Chip, Gull-Wing, J-Lead, BGA).',
+        highlights: [
+          'Interactive Class 1 / 2 / 3 SMT Chip, Gull-Wing & THT Barrel Fill Rule Inspector',
+          'Live Side Overhang (A), End Overhang (B), Fillet Wetting & Heel Height Evaluator',
+          'Real-Time Cross-Sectional Solder Joint & Pad Offset Canvas Visualizer'
+        ]
+      },
+      {
+        id: 'ipc-600j',
+        category: 'pcb',
+        catLabel: '📐 IPC Bare-Board Standard (IPC-A-600J)',
+        catColor: 'rgba(0, 245, 212, 0.18)',
+        catBorder: '#00f5d4',
+        title: 'IPC-A-600J: Acceptability of Printed Boards (External & Internal Microsections)',
+        zhTitle: 'IPC-A-600J：印制板的可接受性标准（外部特征与内部微切片金相判据）',
+        authors: 'IPC — Association Connecting Electronics Industries (Revision J, May 2016, 200 Pages)',
+        pages: '200 Pages · Sections 1–5 · 10 HD Figures',
+        pdfPath: 'Reading/894923540-IPC-A-600J-Acceptability-of-Printed-Boards-英文版.pdf',
+        isLfs: true,
+        desc: 'Definitive visual and cross-sectional microsection standard for bare rigid, multilayer, HDI, and flexible printed boards: haloing, measling/crazing, delamination, external/internal annular ring breakout, PTH plating voids, wicking, etchback, and A/B/C/E/F foil/plating cracks.',
+        highlights: [
+          'Interactive Class 1 / 2 / 3 External & Internal Annular Ring Breakout Calculator',
+          'Live PTH Copper Plating Thickness, Void Area %, Wicking & Crack Type (A–F) Inspector',
+          'Real-Time Top-View Pad Breakout & Cross-Sectional PTH Microsection Canvas'
+        ]
+      }
+    ];
+
+    let currentBookId = null;
+    let currentViewMode = 'combined'; // 'combined' | 'lab' | 'snippets' | 'pdf'
+    let isChineseMode = false;
+    let lightboxZoom = 1;
+
+    // Pinyin dictionary for key technical terms when Chinese/Pinyin mode is active
+    const PINYIN_TERMS = [
+      { zh: '维也纳整流器', py: 'wéi yě nà zhěng liú qì', en: 'VIENNA Rectifier' },
+      { zh: '永磁同步电机', py: 'yǒng cí tóng bù diàn jī', en: 'PMSM' },
+      { zh: '协同控制', py: 'xié tóng kòng zhì', en: 'Synergetic Control' },
+      { zh: '印制电路板', py: 'yìn zhì diàn lù bǎn', en: 'Printed Circuit Board (PCB)' },
+      { zh: '总谐波失真', py: 'zǒng xié bō shī zhēn', en: 'Total Harmonic Distortion (THD)' },
+      { zh: '功率因数', py: 'gōng lǜ yīn shù', en: 'Power Factor (PF)' },
+      { zh: '双有源桥', py: 'shuāng yǒu yuán qiáo', en: 'Dual Active Bridge (DAB)' },
+      { zh: '信号完整性', py: 'xìn hào wán zhěng xìng', en: 'Signal Integrity (SI)' },
+      { zh: '孔环宽度', py: 'kǒng huán kuān dù', en: 'Annular Ring' }
+    ];
+
+    // Resolve PDF URL so Git LFS files download/open properly on GitHub Pages
+    function resolvePdfUrl(relPath) {
+      const cleanPath = decodeURI(relPath);
+      if (window.location.hostname.includes('github.io')) {
+        return 'https://media.githubusercontent.com/media/JeremyHow-source/Electronics/main/' + encodeURI(cleanPath);
+      }
+      return encodeURI(cleanPath);
+    }
+
+    // Initialize Home Cards & Book Switcher
+    function initApp() {
+      if (window.mermaid) {
+        mermaid.initialize({ startOnLoad: false, theme: 'dark', securityLevel: 'loose' });
+      }
+      renderHomeCards('all');
+      const switcher = document.getElementById('reader-book-switcher');
+      switcher.innerHTML = PUBLICATIONS.map((p, idx) =>
+        `<option value="${p.id}">${idx + 1}. ${p.title.slice(0, 62)}...</option>`
+      ).join('');
+
+      // Check URL hash for deep-linking (e.g. #book=5l-mvr)
+      const hash = window.location.hash;
+      if (hash && hash.startsWith('#book=')) {
+        const bid = hash.replace('#book=', '').trim();
+        if (PUBLICATIONS.some(p => p.id === bid)) {
+          openBook(bid, 'combined');
+        }
+      }
+      renderSavedNotes();
+    }
+
+    function renderHomeCards(catFilter) {
+      const grid = document.getElementById('pub-cards-grid');
+      const filtered = catFilter === 'all' ? PUBLICATIONS : PUBLICATIONS.filter(p => p.category === catFilter);
+      grid.innerHTML = filtered.map(pub => {
+        const pdfHref = resolvePdfUrl(pub.pdfPath, pub.isLfs);
+        const titleHtml = isChineseMode
+          ? `${pub.title}<div style="font-size:0.9rem;color:var(--accent-amber);margin-top:4px;">${pub.zhTitle}</div>`
+          : pub.title;
+        return `
+          <article class="pub-card">
+            <div>
+              <div class="pub-card-top">
+                <span class="pub-cat-tag" style="background:${pub.catColor};color:${pub.catBorder};border:1px solid ${pub.catBorder};">
+                  ${pub.catLabel}
+                </span>
+                <span class="pub-pages-tag">${pub.pages}</span>
+              </div>
+              <h2>${titleHtml}</h2>
+              <div class="pub-authors">${pub.authors}</div>
+              <p class="pub-desc">${pub.desc}</p>
+              <div class="pub-Simulation-highlights">
+                <strong>⚡ Interactive Simulation &amp; Replica Charts:</strong>
+                <ul>
+                  ${pub.highlights.map(h => `<li>${h}</li>`).join('')}
+                </ul>
+              </div>
+            </div>
+            <div class="pub-actions">
+              <button class="btn-primary-launch" onclick="openBook('${pub.id}', 'combined')">
+                ⚡ Launch Interactive Lab &amp; Atlas
+              </button>
+              <button class="btn-secondary-launch" onclick="openBook('${pub.id}', 'lab')" title="View Interactive Simulator & Charts Only">
+                📊 Lab Only
+              </button>
+              <a href="${pdfHref}" target="_blank" class="btn-secondary-launch" style="text-decoration:none;" title="Open Original Source PDF">
+                📑 PDF
+              </a>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function filterCategory(cat, btnEl) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      if (btnEl) btnEl.classList.add('active');
+      renderHomeCards(cat);
+    }
+
+    function showHome() {
+      stopSpeech();
+      currentBookId = null;
+      window.location.hash = '';
+      document.getElementById('reader-view').style.display = 'none';
+      document.getElementById('home-view').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function openBook(bookId, mode = 'combined') {
+      stopSpeech();
+      currentBookId = bookId;
+      currentViewMode = mode;
+      window.location.hash = 'book=' + bookId;
+
+      document.getElementById('home-view').style.display = 'none';
+      document.getElementById('reader-view').style.display = 'block';
+      document.getElementById('reader-book-switcher').value = bookId;
+
+      // Render Interactive Lab HTML
+      const labContainer = document.getElementById('interactive-lab-container');
+      if (window.InteractiveLabs) {
+        labContainer.innerHTML = window.InteractiveLabs.getLabHTML(bookId);
+      }
+
+      // Render Markdown Atlas
+      const mdRaw = (window.READING_EMBEDDED_MD && window.READING_EMBEDDED_MD[bookId]) || '# Loading...';
+      renderMarkdownAtlas(bookId, mdRaw);
+
+      // Render Quick Reference Snippets
+      renderSnippetsView(bookId, mdRaw);
+
+      // Render PDF Library View
+      renderPdfLibraryView(bookId);
+
+      // Apply selected view mode
+      setViewMode(mode);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function setViewMode(mode) {
+      currentViewMode = mode;
+      ['combined', 'lab', 'snippets', 'pdf'].forEach(m => {
+        const tab = document.getElementById('tab-' + m);
+        if (tab) tab.classList.toggle('active', m === mode);
+      });
+
+      const labEl = document.getElementById('interactive-lab-container');
+      const mdEl = document.getElementById('markdown-atlas-container');
+      const snipEl = document.getElementById('snippets-container');
+      const pdfEl = document.getElementById('pdf-library-container');
+      const tocEl = document.getElementById('toc-sidebar');
+      const layoutEl = document.getElementById('reader-layout-box');
+
+      if (mode === 'combined') {
+        labEl.style.display = 'block';
+        mdEl.style.display = 'block';
+        snipEl.style.display = 'none';
+        pdfEl.style.display = 'none';
+        tocEl.style.display = 'block';
+        layoutEl.style.gridTemplateColumns = '';
+        if (window.InteractiveLabs && currentBookId) window.InteractiveLabs.initLab(currentBookId);
+      } else if (mode === 'lab') {
+        labEl.style.display = 'block';
+        mdEl.style.display = 'none';
+        snipEl.style.display = 'none';
+        pdfEl.style.display = 'none';
+        tocEl.style.display = 'none';
+        layoutEl.style.gridTemplateColumns = '1fr';
+        if (window.InteractiveLabs && currentBookId) window.InteractiveLabs.initLab(currentBookId);
+      } else if (mode === 'snippets') {
+        labEl.style.display = 'none';
+        mdEl.style.display = 'none';
+        snipEl.style.display = 'block';
+        pdfEl.style.display = 'none';
+        tocEl.style.display = 'none';
+        layoutEl.style.gridTemplateColumns = '1fr';
+      } else if (mode === 'pdf') {
+        labEl.style.display = 'none';
+        mdEl.style.display = 'none';
+        snipEl.style.display = 'none';
+        pdfEl.style.display = 'block';
+        tocEl.style.display = 'none';
+        layoutEl.style.gridTemplateColumns = '1fr';
+      }
+    }
+
+    // Protect LaTeX blocks before Marked.js runs so underscores/backslashes aren't mangled
+    function renderMarkdownWithKaTeX(mdText) {
+      const mathBlocks = [];
+      let protectedMd = mdText.replace(/\$\$([\s\S]*?)\$\$/g, (m) => {
+        mathBlocks.push(m);
+        return `@@MATH_BLOCK_${mathBlocks.length - 1}@@`;
+      });
+      protectedMd = protectedMd.replace(/\$([^\$\n]+?)\$/g, (m) => {
+        mathBlocks.push(m);
+        return `@@MATH_BLOCK_${mathBlocks.length - 1}@@`;
+      });
+
+      let html = marked.parse(protectedMd);
+      html = html.replace(/@@MATH_BLOCK_(\d+)@@/g, (_, idx) => mathBlocks[Number(idx)]);
+      return html;
+    }
+
+    function renderMarkdownAtlas(bookId, mdRaw) {
+      const container = document.getElementById('markdown-atlas-container');
+      let html = renderMarkdownWithKaTeX(mdRaw);
+
+      if (isChineseMode) {
+        const pub = PUBLICATIONS.find(p => p.id === bookId);
+        const rubyBar = PINYIN_TERMS.map(t =>
+          `<span style="display:inline-block;margin:4px 8px;padding:4px 8px;background:var(--bg-secondary);border-radius:6px;border:1px solid var(--border);">
+            <ruby>${t.zh}<rt>${t.py}</rt></ruby> <small style="color:var(--text-secondary);">(${t.en})</small>
+          </span>`
+        ).join('');
+        html = `<div style="margin-bottom:18px;padding:12px 16px;background:rgba(255,184,108,0.1);border:1px solid var(--accent-amber);border-radius:10px;">
+          <strong style="color:var(--accent-amber);">🌐 中文 / 拼音对照导航 (${pub ? pub.zhTitle : ''}):</strong>
+          <div style="margin-top:8px;">${rubyBar}</div>
+        </div>` + html;
+      }
+
+      container.innerHTML = html;
+
+      // Upgrade all images inside markdown-atlas-container into High-Def Figure Lightbox boxes
+      container.querySelectorAll('img').forEach((img, idx) => {
+        const src = img.getAttribute('src') || '';
+        const alt = img.getAttribute('alt') || `Figure ${idx + 1}`;
+        const wrapper = document.createElement('div');
+        wrapper.className = 'pub-figure-box';
+        wrapper.id = `fig-anchor-${idx}`;
+        const safeAlt = alt.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        wrapper.innerHTML = `
+          <div class="pub-figure-toolbar">
+            <span class="pub-figure-caption">🖼️ ${alt}</span>
+            <div class="pub-figure-actions">
+              <button class="btn-fig-zoom" onclick="openLightbox('${src}', '${safeAlt}')">🔍 Fullscreen HD Lightbox</button>
+              <a href="${src}" target="_blank" class="btn-fig-zoom" style="text-decoration:none;">↗ Raw PNG</a>
+            </div>
+          </div>
+          <div class="pub-figure-img-wrap" onclick="openLightbox('${src}', '${safeAlt}')">
+            <img src="${src}" alt="${safeAlt}" loading="lazy" />
+          </div>
+        `;
+        const parentP = img.parentElement;
+        if (parentP && parentP.tagName === 'P' && parentP.childNodes.length === 1) {
+          parentP.replaceWith(wrapper);
+        } else {
+          img.replaceWith(wrapper);
+        }
+      });
+
+      // Upgrade PDF links in Markdown so Git LFS PDFs open properly on GitHub Pages
+      container.querySelectorAll('a[href$=".pdf"]').forEach(a => {
+        const href = a.getAttribute('href') || '';
+        if (href.startsWith('Reading/')) {
+          a.setAttribute('href', resolvePdfUrl(href));
+          a.setAttribute('target', '_blank');
+        }
+      });
+
+      // Upgrade tables with responsive wrapper
+      container.querySelectorAll('table').forEach(tbl => {
+        if (!tbl.parentElement.classList.contains('table-responsive')) {
+          const wrap = document.createElement('div');
+          wrap.className = 'table-responsive';
+          tbl.parentNode.insertBefore(wrap, tbl);
+          wrap.appendChild(tbl);
+        }
+      });
+
+      // Render Mermaid diagrams
+      const mermaidBlocks = container.querySelectorAll('pre code.language-mermaid');
+      mermaidBlocks.forEach((codeBlock, i) => {
+        const pre = codeBlock.parentElement;
+        const div = document.createElement('div');
+        div.className = 'mermaid';
+        div.style.background = '#0d1322';
+        div.style.padding = '16px';
+        div.style.borderRadius = '10px';
+        div.style.margin = '16px 0';
+        div.style.textAlign = 'center';
+        div.textContent = codeBlock.textContent;
+        pre.replaceWith(div);
+      });
+      if (window.mermaid && mermaidBlocks.length > 0) {
+        mermaid.run({ nodes: container.querySelectorAll('.mermaid') }).catch(() => {});
+      }
+
+      // Render KaTeX equations
+      if (window.renderMathInElement) {
+        renderMathInElement(container, {
+          delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '$', right: '$', display: false }
+          ],
+          throwOnError: false
+        });
+      }
+
+      // Build Sidebar TOC (Sections + Figures)
+      buildTocSidebar(container);
+    }
+
+    function buildTocSidebar(container) {
+      const tocList = document.getElementById('toc-list');
+      const items = [];
+      items.push(`<li><a href="javascript:void(0)" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="color:var(--accent-green);font-weight:700;">⚡ Live Interactive Lab &amp; Charts</a></li>`);
+
+      container.querySelectorAll('h2, h3').forEach((heading, idx) => {
+        const id = 'sec-heading-' + idx;
+        heading.id = id;
+        const cls = heading.tagName === 'H3' ? 'toc-h3' : '';
+        items.push(`<li><a class="${cls}" href="javascript:void(0)" onclick="document.getElementById('${id}').scrollIntoView({behavior:'smooth'})">${heading.textContent}</a></li>`);
+      });
+
+      const figs = container.querySelectorAll('.pub-figure-box');
+      if (figs.length > 0) {
+        items.push(`<li style="margin-top:10px;padding-top:8px;border-top:1px solid var(--border);color:var(--accent);font-weight:700;font-size:0.78rem;">🖼️ EXTRACTED FIGURES (${figs.length})</li>`);
+        figs.forEach((f, idx) => {
+          const cap = f.querySelector('.pub-figure-caption');
+          const label = cap ? cap.textContent.replace('🖼️ ', '').slice(0, 48) + '...' : `Figure ${idx + 1}`;
+          items.push(`<li><a class="toc-h3" href="javascript:void(0)" onclick="document.getElementById('${f.id}').scrollIntoView({behavior:'smooth'})">${label}</a></li>`);
+        });
+      }
+      tocList.innerHTML = items.join('');
+    }
+
+    function renderSnippetsView(bookId, mdRaw) {
+      const snipContainer = document.getElementById('snippets-container');
+      const sections = mdRaw.split(/\n(?=##\s)/g);
+      const cardsHtml = sections.map((sec, i) => {
+        const html = renderMarkdownWithKaTeX(sec);
+        return `<div class="snippet-card" id="snip-card-${i}">${html}</div>`;
+      }).join('');
+      snipContainer.innerHTML = `<div class="snippets-grid">${cardsHtml}</div>`;
+      if (window.renderMathInElement) {
+        renderMathInElement(snipContainer, {
+          delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '$', right: '$', display: false }
+          ],
+          throwOnError: false
+        });
+      }
+    }
+
+    function renderPdfLibraryView(bookId) {
+      const pdfContainer = document.getElementById('pdf-library-container');
+      const pub = PUBLICATIONS.find(p => p.id === bookId);
+      if (!pub) return;
+
+      const primaryUrl = resolvePdfUrl(pub.pdfPath, pub.isLfs);
+      let extraHtml = '';
+
+      if (pub.isLfs) {
+        const rawGitHubUrl = 'https://media.githubusercontent.com/media/JeremyHow-source/Electronics/main/' + encodeURI(pub.pdfPath);
+        extraHtml += `
+          <div style="margin:14px 0;padding:12px 16px;background:rgba(56,189,248,0.12);border:1px solid var(--accent-secondary);border-radius:10px;font-size:0.86rem;">
+            <strong>📦 Large Git LFS Standard Manual (${pub.pages.split('·')[0].trim()}):</strong>
+            All key acceptability tables, Class 1/2/3 metrics, and high-resolution figures are already extracted into the <strong>⚡ Interactive Lab + Full Atlas</strong> tab for instant browsing without waiting for a 100+ MB download.
+            To download or view the complete original PDF directly from GitHub LFS media storage, use:
+            <a href="${rawGitHubUrl}" target="_blank" style="font-weight:700;margin-left:6px;">↗ Download Full PDF via GitHub LFS Media</a>
+          </div>
+        `;
+      }
+
+      if (pub.orcadChapters && pub.orcadChapters.length > 0) {
+        const chCards = pub.orcadChapters.map(ch => {
+          const url = resolvePdfUrl('Reading/Complete PCB Design Using OrCAD Capture and PCB Editor/' + ch.file);
+          return `
+            <div class="pdf-item-card">
+              <span style="font-size:0.84rem;font-weight:600;">📄 ${ch.name}</span>
+              <a href="${url}" target="_blank" class="btn-nav" style="flex-shrink:0;">Open PDF ↗</a>
+            </div>
+          `;
+        }).join('');
+        extraHtml += `
+          <h4 style="margin-top:20px;color:var(--accent-secondary);">📚 All 22 Chapter &amp; Appendix PDFs (OrCAD Capture &amp; PCB Editor 2nd Ed.)</h4>
+          <div class="pdf-chapters-grid">${chCards}</div>
+        `;
+      }
+
+      pdfContainer.innerHTML = `
+        <div class="pdf-library-box">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+            <div>
+              <h3 style="margin:0 0 4px;color:var(--accent);">${pub.title}</h3>
+              <p style="margin:0;font-size:0.86rem;color:var(--text-secondary);">${pub.authors} · ${pub.pages}</p>
+            </div>
+            <div style="display:flex;gap:10px;">
+              <a href="${primaryUrl}" target="_blank" class="btn-primary-launch" style="text-decoration:none;">↗ Open Full Source PDF in New Tab</a>
+            </div>
+          </div>
+          ${extraHtml}
+          <div style="margin-top:20px;">
+            <iframe src="${primaryUrl}" style="width:100%;height:720px;border:1px solid var(--border);border-radius:10px;background:#111;"></iframe>
+          </div>
+        </div>
+      `;
+    }
+
+    // ========================================================================
+    // HIGH-DEFINITION FIGURE LIGHTBOX
+    // ========================================================================
+    function openLightbox(src, caption) {
+      lightboxZoom = 1;
+      const img = document.getElementById('lightbox-img');
+      img.src = src;
+      img.style.transform = 'scale(1)';
+      document.getElementById('lightbox-caption').textContent = caption || 'Publication Figure';
+      document.getElementById('lightbox-raw-link').href = src;
+      document.getElementById('lightbox-modal').classList.add('open');
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox-modal').classList.remove('open');
+    }
+
+    function zoomLightbox(delta) {
+      if (delta === 0) lightboxZoom = 1;
+      else lightboxZoom = Math.max(0.5, Math.min(3.5, lightboxZoom + delta));
+      document.getElementById('lightbox-img').style.transform = `scale(${lightboxZoom})`;
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeLightbox();
+        closeFeedbackModal();
+      }
+    });
+
+    // ========================================================================
+    // GLOBAL SEARCH ACROSS ALL 7 PUBLICATIONS
+    // ========================================================================
+    function handleGlobalSearch(query) {
+      const panel = document.getElementById('search-results-panel');
+      const list = document.getElementById('search-results-list');
+      const q = (query || '').trim().toLowerCase();
+      if (q.length < 2) {
+        panel.style.display = 'none';
+        return;
+      }
+
+      const hits = [];
+      PUBLICATIONS.forEach(pub => {
+        const md = (window.READING_EMBEDDED_MD && window.READING_EMBEDDED_MD[pub.id]) || '';
+        const lines = md.split('\n');
+        lines.forEach((line, idx) => {
+          if (line.toLowerCase().includes(q)) {
+            hits.push({
+              bookId: pub.id,
+              bookTitle: pub.title,
+              snippet: line.replace(/[#*`>|]/g, '').trim().slice(0, 160),
+              lineNum: idx + 1
+            });
+          }
+        });
+      });
+
+      document.getElementById('search-results-title').textContent = `🔍 Found ${hits.length} matches for "${query}" across 7 publications`;
+      list.innerHTML = hits.slice(0, 25).map(h => `
+        <div class="search-hit" onclick="clearGlobalSearch(); openBook('${h.bookId}', 'combined');">
+          <strong style="color:var(--accent);font-size:0.85rem;">${h.bookTitle}</strong>
+          <div style="font-size:0.83rem;color:var(--text-secondary);margin-top:2px;">${h.snippet}</div>
+        </div>
+      `).join('') || `<div style="padding:8px;color:var(--text-secondary);">No matching lines found.</div>`;
+      panel.style.display = 'block';
+    }
+
+    function clearGlobalSearch() {
+      document.getElementById('global-search').value = '';
+      document.getElementById('search-results-panel').style.display = 'none';
+    }
+
+    // ========================================================================
+    // THEME, BILINGUAL ZH/PINYIN, AUDIO TTS & FEEDBACK NOTES
+    // ========================================================================
+    function setTheme(themeName) {
+      document.body.setAttribute('data-theme', themeName);
+      localStorage.setItem('electronics_theme', themeName);
+    }
+
+    function toggleLanguage() {
+      isChineseMode = !isChineseMode;
+      const btn = document.getElementById('btn-lang-toggle');
+      btn.classList.toggle('active', isChineseMode);
+      renderHomeCards('all');
+      if (currentBookId && window.READING_EMBEDDED_MD) {
+        renderMarkdownAtlas(currentBookId, window.READING_EMBEDDED_MD[currentBookId]);
+      }
+    }
+
+    function toggleSpeech() {
+      if (!('speechSynthesis' in window)) return;
+      if (window.speechSynthesis.speaking) {
+        stopSpeech();
+        return;
+      }
+      const container = document.getElementById('markdown-atlas-container');
+      const text = container ? container.innerText.slice(0, 4000) : '';
+      if (!text) return;
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.rate = 1.02;
+      utter.onend = () => {
+        document.getElementById('btn-tts').textContent = '🔊 Listen';
+      };
+      document.getElementById('btn-tts').textContent = '⏹ Stop Audio';
+      window.speechSynthesis.speak(utter);
+    }
+
+    function stopSpeech() {
+      if ('speechSynthesis' in window && window.speechSynthesis.speaking) {
+        window.speechSynthesis.cancel();
+      }
+      const btn = document.getElementById('btn-tts');
+      if (btn) btn.textContent = '🔊 Listen';
+    }
+
+    function openFeedbackModal() {
+      document.getElementById('feedback-modal').classList.add('open');
+      renderSavedNotes();
+    }
+    function closeFeedbackModal() {
+      document.getElementById('feedback-modal').classList.remove('open');
+    }
+    function saveLocalNote() {
+      const title = document.getElementById('note-title').value.trim() || 'Engineering Note';
+      const body = document.getElementById('note-body').value.trim();
+      if (!body) return;
+      const notes = JSON.parse(localStorage.getItem('electronics_reading_notes') || '[]');
+      notes.unshift({ title, body, date: new Date().toLocaleString() });
+      localStorage.setItem('electronics_reading_notes', JSON.stringify(notes));
+      document.getElementById('note-body').value = '';
+      renderSavedNotes();
+    }
+    function renderSavedNotes() {
+      const notes = JSON.parse(localStorage.getItem('electronics_reading_notes') || '[]');
+      const el = document.getElementById('saved-notes-list');
+      if (!el) return;
+      if (notes.length === 0) {
+        el.innerHTML = '<div style="color:var(--text-secondary);">No saved browser notes yet.</div>';
+        return;
+      }
+      el.innerHTML = notes.map((n, i) => `
+        <div style="padding:8px;border:1px solid var(--border);border-radius:6px;margin-bottom:6px;background:var(--bg-secondary);">
+          <strong>${n.title}</strong> <small style="color:var(--text-secondary);">(${n.date})</small>
+          <div style="margin-top:4px;color:var(--text-primary);">${n.body}</div>
+        </div>
+      `).join('');
+    }
+    function submitGitHubIssue() {
+      const title = encodeURIComponent(document.getElementById('note-title').value.trim() || 'Reading Atlas Feedback');
+      const body = encodeURIComponent(document.getElementById('note-body').value.trim() || '');
+      window.open(`https://github.com/JeremyHow-source/Electronics/issues/new?title=${title}&body=${body}`, '_blank');
+    }
+
+    // Re-render Interactive Lab Canvases on Window Resize
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      if (!currentBookId || (currentViewMode !== 'combined' && currentViewMode !== 'lab')) return;
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        if (window.InteractiveLabs) window.InteractiveLabs.initLab(currentBookId);
+      }, 150);
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('electronics_theme');
+      if (savedTheme) {
+        document.body.setAttribute('data-theme', savedTheme);
+        const sel = document.getElementById('theme-select');
+        if (sel) sel.value = savedTheme;
+      }
+      initApp();
+    });
+  </script>
+</body>
+</html>
