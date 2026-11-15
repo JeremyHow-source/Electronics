@@ -156,21 +156,23 @@
     .nav-controls {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       flex-wrap: wrap;
     }
     .search-box {
       position: relative;
-      min-width: 245px;
+      min-width: min(295px, 100%);
+      flex: 0 1 305px;
+      max-width: 340px;
     }
     .search-box input {
       width: 100%;
       background: var(--bg-secondary);
       border: 1px solid var(--border);
       color: var(--text-primary);
-      padding: 7px 12px 7px 32px;
+      padding: 6px 10px 6px 28px;
       border-radius: 8px;
-      font-size: 0.88rem;
+      font-size: 0.81rem;
       outline: none;
       transition: border-color 0.2s;
     }
@@ -357,24 +359,29 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 8px;
+      flex-wrap: wrap;
+      gap: 6px 8px;
       margin-bottom: 12px;
     }
     .pub-cat-tag {
-      font-size: 0.74rem;
+      font-size: 0.71rem;
       font-weight: 700;
       padding: 3px 10px;
       border-radius: 999px;
       text-transform: uppercase;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
     .pub-pages-tag {
-      font-size: 0.76rem;
+      font-size: 0.74rem;
       color: var(--text-secondary);
       background: var(--bg-secondary);
       padding: 3px 9px;
       border-radius: 6px;
       border: 1px solid var(--border);
+      white-space: nowrap;
+      flex-shrink: 0;
     }
     .pub-card h2 {
       margin: 0 0 8px;
@@ -928,25 +935,14 @@
     ruby { ruby-align: center; }
     rt { font-size: 0.68em; color: var(--accent-amber); font-weight: 600; }
 
-    /* Floating Ko-fi Widget */
-    .floating-kofi {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 1200;
-      background: linear-gradient(135deg, #ff5e5b, #ff8552);
-      color: #fff !important;
-      padding: 10px 16px;
-      border-radius: 999px;
-      font-weight: 800;
-      font-size: 0.86rem;
-      box-shadow: 0 8px 20px rgba(255, 94, 91, 0.45);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      text-decoration: none !important;
+    .btn-nav.active {
+      border-color: var(--accent);
+      background: rgba(189, 147, 249, 0.16);
+      color: var(--accent);
     }
-    .floating-kofi:hover { transform: translateY(-2px); }
+    @media (max-width: 640px) {
+      .search-box { min-width: 100%; max-width: none; }
+    }
 
     footer {
       border-top: 1px solid var(--border);
@@ -1187,7 +1183,7 @@
         <button class="btn-nav" onclick="zoomLightbox(-0.25)">➖ Zoom Out</button>
         <button class="btn-nav" onclick="zoomLightbox(0)">100%</button>
         <button class="btn-nav" onclick="zoomLightbox(0.25)">➕ Zoom In</button>
-        <a id="lightbox-raw-link" href="#" download="engineering-chart.png" class="btn-nav">⬇ Save PNG</a>
+        <a id="lightbox-raw-link" download="engineering-chart.png" class="btn-nav" style="display:none;">⬇ Save PNG</a>
         <button class="btn-nav" onclick="closeLightbox()" style="background:var(--accent-red);color:#fff;border:none;">✖ Close (Esc)</button>
       </div>
     </div>
@@ -1215,11 +1211,6 @@
       <div id="saved-notes-list" style="margin-top:14px;max-height:180px;overflow-y:auto;font-size:0.82rem;"></div>
     </div>
   </div>
-
-  <!-- FLOATING KO-FI BUTTON -->
-  <a href="https://ko-fi.com/jeremyhow" target="_blank" class="floating-kofi">
-    ☕ Buy Jeremy a Coffee
-  </a>
 
   <footer>
     <p>
@@ -1652,11 +1643,17 @@
       const link = document.getElementById('lightbox-raw-link');
       link.href = dataUrl;
       link.download = (canvasId || 'chart') + '.png';
+      link.style.display = 'inline-flex';
       document.getElementById('lightbox-modal').classList.add('open');
     }
 
     function closeLightbox() {
       document.getElementById('lightbox-modal').classList.remove('open');
+      const link = document.getElementById('lightbox-raw-link');
+      if (link) {
+        link.style.display = 'none';
+        link.removeAttribute('href');
+      }
     }
 
     function zoomLightbox(delta) {
